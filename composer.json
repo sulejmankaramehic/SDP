@@ -1,0 +1,11 @@
+{
+    "name": "sdp/tutor-platform",
+    "description": "Tutor platform",
+    "authors": [
+        {
+            "name": "sulejmankaramehic",
+            "email": "sulejman.karamehic@stu.ibu.edu.ba"
+        }
+    ],
+    "require": {}
+}
