@@ -17,17 +17,19 @@ class UserDao extends BaseDao{
 
   public function add_user($user){
 
-    $sql = "INSERT INTO users (name, last_name, email, username, password) VALUES (:name, :last_name, :email, :username, :password)";
-    $stmt= $this->connection->prepare($sql);
-    $stmt->execute($user);
-    $user['id'] = $this -> connection -> lastInsertId();
-    return $user;
+    return $this->insert("users", $user);
 
   }
 
   public function update_user($id, $user){
 
+    $this->update("users", $id, $user);
 
+  }
+
+  public function update_user_by_email($email, $user){
+
+    $this->update("users", $email, $user, "email");
   }
 }
 

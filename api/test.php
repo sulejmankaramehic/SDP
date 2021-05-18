@@ -6,12 +6,13 @@ $user_dao = new UserDao();
 
 $user1 = [
 
-  "name" => "Miki",
-  "last_name" => "Maus",
-  "email" => "miki@gmail.com",
-  "username" => "miki",
-  "password" => "123"
+  "password" => "jook",
+  "name" => "Olex",
+  "last_name" => "Kisnjov",
+  "username" => "olex12",
+  "email" => "olexyyy@gmail.com"
 ];
+
 
 $user = $user_dao->add_user($user1);
 
