@@ -7,7 +7,9 @@ class BaseDao {
 
   protected $connection;
 
-  public function __construct(){
+  public function __construct($table){
+
+    $this->table = $table;
 
     try {
       $this->connection = new PDO("mysql:host=".Config::DB_HOST.";dbname=".Config::DB_SCHEME, Config::DB_USERNAME, Config::DB_PASSWORD);
@@ -18,7 +20,7 @@ class BaseDao {
 
   }
 
-  public function insert($table, $entity){
+  protected function insert($table, $entity){
 
     $query ="INSERT INTO ${table} (";
     foreach ($entity as $column => $value){
@@ -39,7 +41,7 @@ class BaseDao {
 
   }
 
-  public function query($query, $params){
+  protected function query($query, $params){
 
     $stmt = $this->connection->prepare($query);
     $stmt->execute($params);
@@ -47,7 +49,7 @@ class BaseDao {
 
   }
 
-  public function update($table, $id, $entity, $id_cloumn = "id"){
+  protected function execute_update($table, $id, $entity, $id_cloumn = "id"){
 
     $query = "UPDATE ${table} SET ";
     foreach($entity as $name => $value){
@@ -63,10 +65,28 @@ class BaseDao {
 
   }
 
-  public function query_unique($query, $params){
+  protected function query_unique($query, $params){
 
     $result = $this -> query($query, $params);
     return reset($result);
+
+  }
+
+  public function add($entity){
+
+    return $this->insert($this->table, $entity);
+
+  }
+
+  public function update($id, $entity){
+
+    return $this->execute_update($this->table, $id, $entity);
+
+  }
+
+  public function get_by_id($id){
+
+    return $this -> query_unique("SELECT * FROM ".$this->table." WHERE id = :id", ["id" => $id]);
 
   }
 
