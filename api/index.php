@@ -9,21 +9,16 @@ require dirname(__FILE__).'/dao/UserDao.class.php';
 Flight::register('userDao','UserDao');
 
 Flight::route('GET /users', function(){
-  $users = Flight::userDao()->get_all(0,10);
-  Flight::json($users);
+  Flight::json(Flight::userDao()->get_all(0,10));
 });
 
 Flight::route('GET /users/@id', function($id){
-    $user = Flight::userDao()->get_by_id($id);
-    Flight::json($user);
+  Flight::json(Flight::userDao()->get_by_id($id));
 });
 
 Flight::route('POST /users', function(){
-  $request = Flight::request();
-  $data = $request->data->getData();
-
-  $user = Flight::userDao()->add($data);
-  Flight::json($user);
+  $data = Flight::request()->data->getData();
+  Flight::json(Flight::userDao()->add($data));
 });
 
 Flight::route('PUT /users/@id', function($id){
