@@ -2,6 +2,11 @@
 
 require_once dirname(__FILE__)."/../config.php";
 
+/*
+Main class for interaction with database
+Other DAO classes should inherit this class
+*/
+
 
 class BaseDao {
 
@@ -88,6 +93,11 @@ class BaseDao {
 
     return $this -> query_unique("SELECT * FROM ".$this->table." WHERE id = :id", ["id" => $id]);
 
+  }
+
+  public function get_all($offset = 0, $limit = 20){
+
+    return $this->query("SELECT * FROM ".$this->table." LIMIT ${limit} OFFSET ${offset}", []);
   }
 
 }
