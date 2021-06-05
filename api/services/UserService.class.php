@@ -45,6 +45,13 @@ class UserService extends BaseService{
   }
 
   public function confirm($token){
+    $user = $this->dao->get_user_by_token($token);
+
+    if(!isset($user['id'])) throw Exception("Inavlid token");
+    $this->dao->update($user['id'], ["status" => "ACTIVE"]);
+    $this->accountDao->update($user['acc_id'], ["status" => "ACTIVE"]);
+
+    //TODO send email
 
   }
 }
