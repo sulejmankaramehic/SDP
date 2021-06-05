@@ -2,26 +2,50 @@
 
 require_once dirname(__FILE__).'/BaseService.class.php';
 require_once dirname(__FILE__).'/../dao/UserDao.class.php';
+require_once dirname(__FILE__).'/../dao/AccountDao.class.php';
 
 class UserService extends BaseService{
 
+  private $accountDao;
+
   public function __construct(){
     $this->dao = new UserDao();
+    $this->accountDao = new AccountDao();
   }
 
-  public function get_users($search, $offset, $limit){
-    if($search){
-      return $this->dao->get_users($search, $offset, $limit);
-    }else{
-      return $this->dao->get_all($offset, $limit);
+  public function register($user){
+    if (!isset($user['account'])) throw new Exception("Account field is required");
+
+    try {
+      $account = $this->accountDao->add([
+        "name"=> $user['account'],
+        "status"=>"PENDING"
+      ]);
+
+      $user = parent::add([
+        "acc_id"=>$account['id'],
+        "name"=>$user['name'],
+        "last_name"=>$user['last_name'],
+        "username"=>$user['username'],
+        "password"=>$user['password'],
+        "email"=>$user['email'],
+        "role"=>"BASIC_USER",
+        "status"=>"PENDING",
+        "token"=> md5(random_bytes(16))
+      ]);
+
+    } catch (\Exception $e) {
+      throw $e;
     }
+
+
+    //send email with token
+
+    return $user;
   }
 
-  public function add($user){
-    //validation
-    if(!isset($user['name'])) throw new Exception("Name is missing!");
+  public function confirm($token){
 
-    return parent::add($user);
   }
 }
 ?>

@@ -2,6 +2,8 @@
 
 class Config {
 
+  const DATE_FORMAT = "Y-m-d";
+
   const DB_HOST = "remotemysql.com";
   const DB_USERNAME = "DrBIW6dZaA";
   const DB_PASSWORD = "2GiE4oeXL9";
