@@ -14,7 +14,7 @@ class BaseDao {
   private $table;
 
   public function beginTransaction(){
-    $this->connection->beginTransaction();
+    $response = $this->connection->beginTransaction();
   }
 
   public function commit(){
@@ -22,17 +22,17 @@ class BaseDao {
   }
 
   public function rollBack(){
-    $this->connection->rollBack();
+    $response = $this->connection->rollBack();
   }
 
-  public static function parse_order($order){
+  public function parse_order($order){
     switch(substr($order, 0, 1)){
       case '-': $order_direction = "ASC"; break;
       case '+': $order_direction = "DESC"; break;
       default: throw new Exception("Error Processing Request"); break;
     }
 
-    $order_column = substr($order, 1);
+    $order_column = trim($this->connection->quote(substr($order, 1)),"'");
 
     return [$order_column, $order_direction];
   }

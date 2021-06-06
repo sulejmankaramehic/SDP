@@ -26,11 +26,17 @@ Flight::map('query', function($name, $default_value = NULL){
 Flight::register('userService','UserService');
 Flight::register('accountService','AccountService');
 
+
 /* Including all routes*/
 require_once dirname(__FILE__).'/routes/users.php';
 require_once dirname(__FILE__).'/routes/accounts.php';
 
-
+/*Swagger documentacion*/
+Flight::route('GET /swagger', function(){
+  $openapi = @\OpenApi\scan(dirname(__FILE__)."/routes");
+  header('Content-Type: application/json');
+  echo $openapi->toJson();
+});
 
 Flight::start();
 
