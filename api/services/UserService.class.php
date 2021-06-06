@@ -17,6 +17,7 @@ class UserService extends BaseService{
     if (!isset($user['account'])) throw new Exception("Account field is required");
 
     try {
+      $this->dao->beginTransaction();
       $account = $this->accountDao->add([
         "name"=> $user['account'],
         "status"=>"PENDING"
@@ -33,11 +34,12 @@ class UserService extends BaseService{
         "status"=>"PENDING",
         "token"=> md5(random_bytes(16))
       ]);
+      $this->dao->commit();
 
     } catch (\Exception $e) {
+      $this->dao->rollBack();
       throw $e;
     }
-
 
     //send email with token
 
