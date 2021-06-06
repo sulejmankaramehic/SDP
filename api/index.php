@@ -11,7 +11,7 @@ Flight::set('flight.log_errors', true);
 
 /*error handeling for our api*/
 Flight::map('error', function(Exception $ex){
-  Flight::json(["message" => $ex->getMessage()], $ex->getCode());
+  Flight::json(["message" => $ex->getMessage()], $ex->getCode() ? $ex->getCode() : 500);
 });
 
 /* Utility function for reading query parameters from URL*/
