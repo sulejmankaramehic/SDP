@@ -2,10 +2,11 @@
 
 Flight::route('GET /accounts', function(){
   $offset = Flight::query('offset', 0);
-  $limit = Flight::query('limit', 10);
+  $limit = Flight::query('limit', 25);
   $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
 
-  Flight::json(Flight::accountService()->get_accounts($search, $offset, $limit));
+  Flight::json(Flight::accountService()->get_accounts($search, $offset, $limit, $order));
 });
 
 Flight::route('GET /accounts/@id', function($id){
