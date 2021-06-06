@@ -36,9 +36,13 @@ class UserService extends BaseService{
       ]);
       $this->dao->commit();
 
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
       $this->dao->rollBack();
-      throw $e;
+      if (strpos($e->getMessage(), 'username_UNIQUE')) {
+       throw new Exception("Username in use already", 400, $e);
+     }else{
+       throw $e;
+     }
     }
 
     //send email with token

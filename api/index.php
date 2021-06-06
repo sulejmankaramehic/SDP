@@ -7,6 +7,13 @@ require_once dirname(__FILE__).'/../vendor/autoload.php';
 require_once dirname(__FILE__).'/services/UserService.class.php';
 require_once dirname(__FILE__).'/services/AccountService.class.php';
 
+Flight::set('flight.log_errors', true);
+
+/*error handeling for our api*/
+Flight::map('error', function(Exception $ex){
+  Flight::json(["message" => $ex->getMessage()], $ex->getCode());
+});
+
 /* Utility function for reading query parameters from URL*/
 Flight::map('query', function($name, $default_value = NULL){
   $request = Flight::request();
