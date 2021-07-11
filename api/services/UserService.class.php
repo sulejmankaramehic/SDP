@@ -4,31 +4,27 @@ require_once dirname(__FILE__).'/BaseService.class.php';
 require_once dirname(__FILE__).'/../dao/UserDao.class.php';
 require_once dirname(__FILE__).'/../dao/AccountDao.class.php';
 
+require_once dirname(__FILE__).'/../clients/SMTPClient.class.php';
+
+
 class UserService extends BaseService{
 
-  private $accountDao;
+  private $smtpClient;
 
   public function __construct(){
     $this->dao = new UserDao();
-    $this->accountDao = new AccountDao();
+    $this->smtpClient = new SMTPClient();
   }
 
   public function register($user){
-    if (!isset($user['account'])) throw new Exception("Account field is required");
-    $this->dao->beginTransaction();
 
     try {
-      $account = $this->accountDao->add([
-        "name"=> $user['account'],
-        "status"=>"PENDING"
-      ]);
 
       $user = parent::add([
-        "acc_id"=>$account['id'],
         "name"=>$user['name'],
         "last_name"=>$user['last_name'],
         "username"=>$user['username'],
-        "password"=>$user['password'],
+        "password"=>md5($user['password']),
         "email"=>$user['email'],
         "role"=>"BASIC_USER",
         "status"=>"PENDING",
@@ -43,10 +39,8 @@ class UserService extends BaseService{
        throw $e;
      }
     }
-    $this->dao->commit();
-    
 
-    //send email with token
+    $this->smtpClient->send_token($user);
 
     return $user;
   }
@@ -54,12 +48,10 @@ class UserService extends BaseService{
   public function confirm($token){
     $user = $this->dao->get_user_by_token($token);
 
-    if(!isset($user['id'])) throw Exception("Inavlid token");
-    $this->dao->update($user['id'], ["status" => "ACTIVE"]);
-    $this->accountDao->update($user['acc_id'], ["status" => "ACTIVE"]);
+    if(!isset($user['id'])) throw Exception("Invalid token");
+    $this->dao->update($user['id'], ["status" => "ACTIVE", "token" => NULL]);
 
-    //TODO send email
-
+    return $user;
   }
 }
 ?>
