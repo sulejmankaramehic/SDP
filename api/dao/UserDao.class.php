@@ -13,6 +13,10 @@ class UserDao extends BaseDao{
     return $this->query_unique("SELECT * FROM users WHERE username = :username", ["username" => $username]);
   }
 
+  public function get_user_by_email($email){
+    return $this->query_unique("SELECT * FROM users WHERE email = :email", ["email" => $email]);
+  }
+
   public function update_user_by_email($email, $user){
     $this->update("users", $email, $user, "email");
   }

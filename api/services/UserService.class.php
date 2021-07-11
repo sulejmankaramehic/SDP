@@ -2,7 +2,6 @@
 
 require_once dirname(__FILE__).'/BaseService.class.php';
 require_once dirname(__FILE__).'/../dao/UserDao.class.php';
-require_once dirname(__FILE__).'/../dao/AccountDao.class.php';
 
 require_once dirname(__FILE__).'/../clients/SMTPClient.class.php';
 
@@ -14,6 +13,19 @@ class UserService extends BaseService{
   public function __construct(){
     $this->dao = new UserDao();
     $this->smtpClient = new SMTPClient();
+  }
+
+  public function login($user){
+
+    $db_user = $this->dao->get_user_by_email($user['email']);
+
+    if(!isset($db_user['id'])) throw new Exception("User not found", 400);
+
+    if($db_user['status'] != 'ACTIVE') throw new Exception("User not active", 400);
+
+    if($db_user['password'] != md5($user['password'])) throw new Exception("Invalid password!", 400);
+
+    return $db_user;
   }
 
   public function register($user){
