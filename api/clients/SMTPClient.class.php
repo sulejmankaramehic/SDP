@@ -31,6 +31,18 @@ class SMTPClient {
     // Send the message
     $this->mailer->send($message);
   }
+
+  public function send_recovery_token($user){
+
+    // Create a message
+    $message = (new Swift_Message('Recovery token'))
+      ->setFrom(['mail.responder2021@gmail.com' => 'Online Tutor Platform'])
+      ->setTo([$user['email']])
+      ->setBody('Here is the recovery token: '.$user['token']);
+
+    // Send the message
+    $this->mailer->send($message);
+  }
 }
 
 ?>
