@@ -81,7 +81,7 @@ class UserService extends BaseService{
 
     if(!isset($db_user['id'])) throw new Exception("Invalid token", 400);
 
-    $this->dao->update($db_user['id'], ['password' => md5($user['password'])]);
+    $this->dao->update($db_user['id'], ['password' => md5($user['password']), 'token' => NULL]);
   }
 }
 ?>
