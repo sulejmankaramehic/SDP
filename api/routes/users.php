@@ -23,6 +23,12 @@ Flight::route('POST /users/register', function(){
   Flight::json(["mesaage" => "Activation link has been sent to your email!"]);
 });
 
+/**
+ * @OA\Get(path="/users/confirm/{token}", tags={"users"},
+ *     @OA\Parameter(type="string", in="path", name="token", default=123, description="Token for activating account"),
+ *     @OA\Response(response="200", description="Message upon successfull activation")
+ * )
+ */
 Flight::route('GET /users/confirm/@token', function($token){
   Flight::userService()->confirm($token);
   Flight::json(["message" => "Your account hass been activated"]);
