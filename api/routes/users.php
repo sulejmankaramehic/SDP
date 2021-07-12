@@ -101,17 +101,7 @@ Flight::route('POST /users/reset', function(){
  * )
  */
 Flight::route('GET /users/@id', function($id){
-  $headers = getallheaders();
-  $token = @$headers['Authentication'];
-  try {
-    $decoded = (array)\Firebase\JWT\JWT::decode($token, "JWT SECRET", ["HS256"]);
-    if ($decoded['id'] == $id){
-      Flight::json(Flight::userService()->get_by_id($id));
-    }else{
-      Flight::json(["message" => "This is not meant for you!"], 403);
-    }
-  } catch (\Exception $e) {
-    Flight::json(["message" => $e->getMessage()], 401);
-  }
+  if(Flight::get('user')['id'] != $id) throw new Exception("This information is not for you", 403);
+  Flight::json(Flight::userService()->get_by_id($id));
 });
 ?>

@@ -30,6 +30,7 @@ Flight::register('accountService','AccountService');
 /* Including all routes*/
 require_once dirname(__FILE__).'/routes/users.php';
 require_once dirname(__FILE__).'/routes/accounts.php';
+require_once dirname(__FILE__).'/routes/middleware.php';
 
 /*Swagger documentacion*/
 Flight::route('GET /swagger', function(){
