@@ -101,7 +101,6 @@ Flight::route('POST /users/reset', function(){
  * )
  */
 Flight::route('GET /users/@id', function($id){
-  if(Flight::get('user')['id'] != $id) throw new Exception("This information is not for you", 403);
   Flight::json(Flight::userService()->get_by_id($id));
 });
 ?>

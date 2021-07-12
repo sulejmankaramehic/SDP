@@ -22,16 +22,6 @@ Flight::map('query', function($name, $default_value = NULL){
   return $query_parameters;
 });
 
-/* Registering Business logic layer services*/
-Flight::register('userService','UserService');
-Flight::register('accountService','AccountService');
-
-
-/* Including all routes*/
-require_once dirname(__FILE__).'/routes/users.php';
-require_once dirname(__FILE__).'/routes/accounts.php';
-require_once dirname(__FILE__).'/routes/middleware.php';
-
 /*Swagger documentacion*/
 Flight::route('GET /swagger', function(){
   $openapi = @\OpenApi\scan(dirname(__FILE__)."/routes");
@@ -42,6 +32,15 @@ Flight::route('GET /swagger', function(){
 Flight::route('GET /', function(){
   Flight::redirect('/docs');
 });
+
+/* Registering Business logic layer services*/
+Flight::register('userService','UserService');
+Flight::register('accountService','AccountService');
+
+/* Including all routes*/
+require_once dirname(__FILE__).'/routes/middleware.php';
+require_once dirname(__FILE__).'/routes/users.php';
+require_once dirname(__FILE__).'/routes/accounts.php';
 
 Flight::start();
 
