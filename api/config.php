@@ -14,6 +14,9 @@ class Config {
   const SMTP_PROTOCOL = "tls";
 
   const DATE_FORMAT = "Y-m-d H:i:s";
+
+  const JWT_SECRET = "";
+  const JWT_TIME = 604800;
 }
 
 ?>
