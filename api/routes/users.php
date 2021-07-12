@@ -2,7 +2,8 @@
 /**
  * @OA\Info(title="Online Tutor Platform API", version="0.1")
  * @OA\OpenApi(
- *   @OA\Server(url="http://localhost/SDP/api/", description="Development Environment")),
+ *   @OA\Server(url="http://localhost/SDP/api/", description="Development Environment"),
+ *   @OA\Server(url="https://onlinetutoring.sknet.me/api/", description="Production Environment" )),
  * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authentication")
  */
 /**
