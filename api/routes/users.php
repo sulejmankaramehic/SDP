@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * @OA\Info(title="Online Tutor Platform API", version="0.1")
+ * @OA\OpenApi(
+ *   @OA\Server(url="http://localhost/SDP/api/", description="Development Environment")),
+ * @OA\SecurityScheme(securityScheme="ApiKeyAuth", type="apiKey", in="header", name="Authentication")
+ */
 /**
  * @OA\Post(path="/users/register", tags={"users"},
  *   @OA\RequestBody(description="Basic user info", required=true,
@@ -87,5 +92,26 @@ Flight::route('POST /users/reset', function(){
   $data = Flight::request()->data->getData();
   Flight::userService()->reset($data);
   Flight::json(["message" => "Your password has been changed"]);
+});
+
+/**
+ * @OA\Get(path="/users/{id}", tags={"users"}, security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(@OA\Schema(type="integer"), in="path", allowReserved=true, name="id", default=1, description="ID of user"),
+ *     @OA\Response(response="200", description="Fetching user based on ID")
+ * )
+ */
+Flight::route('GET /users/@id', function($id){
+  $headers = getallheaders();
+  $token = @$headers['Authentication'];
+  try {
+    $decoded = (array)\Firebase\JWT\JWT::decode($token, "JWT SECRET", ["HS256"]);
+    if ($decoded['id'] == $id){
+      Flight::json(Flight::userService()->get_by_id($id));
+    }else{
+      Flight::json(["message" => "This is not meant for you!"], 403);
+    }
+  } catch (\Exception $e) {
+    Flight::json(["message" => $e->getMessage()], 401);
+  }
 });
 ?>

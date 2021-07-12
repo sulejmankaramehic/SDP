@@ -12,6 +12,8 @@ class Config {
   const SMTP_USERNAME = "";
   const SMTP_PASSWORD = "";
   const SMTP_PROTOCOL = "tls";
+
+  const DATE_FORMAT = "Y-m-d H:i:s";
 }
 
 ?>

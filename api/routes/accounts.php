@@ -1,12 +1,5 @@
 <?php
 /**
- * @OA\Info(title="Online Tutor Platform API", version="0.1")
- * @OA\OpenApi(
- *   @OA\Server(url="http://localhost/SDP/api/", description="Development Environment"),
- *   @OA\Server(url="http://SDP.biznet/api/", description="Production Environment")
- * )
- */
-/**
  * @OA\Get(path="/accounts", tags={"account"},
  *     @OA\Parameter(type="integer", in="query", name="offset", default=0, description="Offset for pagination"),
  *     @OA\Parameter(type="integer", in="query", name="limit", default=25, description="Limit for pagination"),
