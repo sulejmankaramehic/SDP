@@ -22,6 +22,12 @@ Flight::map('query', function($name, $default_value = NULL){
   return $query_parameters;
 });
 
+/* utility function for getting header parameters */
+Flight::map('header', function($name){
+  $headers = getallheaders();
+  return @$headers[$name];
+});
+
 /*Swagger documentacion*/
 Flight::route('GET /swagger', function(){
   $openapi = @\OpenApi\scan(dirname(__FILE__)."/routes");
