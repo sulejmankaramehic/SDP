@@ -50,7 +50,6 @@ class BaseDao {
   }
 
   protected function insert($table, $entity){
-    $this->connection->beginTransaction();
     $query ="INSERT INTO ${table} (";
     foreach ($entity as $column => $value){
       $query .= $column.", ";
@@ -65,7 +64,6 @@ class BaseDao {
 
     $stmt= $this->connection->prepare($query);
     $stmt->execute($entity);
-    $this->connection->commit();
     $entity['id'] = $this->connection->lastInsertId();
     return $entity;
   }
@@ -77,6 +75,7 @@ class BaseDao {
   }
 
   protected function execute_update($table, $id, $entity, $id_cloumn = "id"){
+    $this->connection->beginTransaction();
     $query = "UPDATE ${table} SET ";
     foreach($entity as $name => $value){
       $query .= $name ."= :". $name. ", ";
@@ -88,6 +87,7 @@ class BaseDao {
     $stmt= $this->connection->prepare($query);
     $entity['id'] = $id;
     $stmt->execute($entity);
+    $this->connection->commit();
   }
 
   protected function query_unique($query, $params){
