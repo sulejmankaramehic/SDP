@@ -5,11 +5,12 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="image/png" href="assets/img/icons8-books-48.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Online Tutoring Platform</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +20,8 @@
 
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link href="assets/css/jQuerySPApp.css" rel="stylesheet">
 
 </head>
 
@@ -83,7 +86,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="pages/utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="#colors">Colors</a>
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
@@ -221,8 +224,15 @@
                 <!-- End of Topbar -->
 
 
+
             </div>
             <!-- End of Main Content -->
+
+            <main id="jqueryspapp" role="main">
+              <section id="dashboard" data-load="dashboard.html" ></section>
+              <section id="colors" data-load="colors.html"></section>
+
+            </main>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -245,26 +255,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -281,6 +271,21 @@
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
+
+    <script src="assets/js/jQuerySPApp.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var app = $.jQuerySPApp({defaultView  : "dashboard"}); // initialize
+
+        // define routes
+        app.route({view: 'dashboard', load: 'dashboard.html' });
+        app.route({view: 'colors', load: 'colors.html' });
+
+        // run app
+        app.run();
+      });
+    </script>
 
 </body>
 
