@@ -72,11 +72,7 @@ class UserService extends BaseService{
 
     if(strtotime(date(Config::DATE_FORMAT)) - strtotime($db_user['token_created_time']) < 300) throw new Exception("Token is on the way!", 400);
 
-    $this->dao->beginTransaction();
-
     $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16)), 'token_created_time' => date(Config::DATE_FORMAT)]);
-
-    $this->dao->commit();
 
     $this->smtpClient->send_recovery_token($db_user);
   }
@@ -89,11 +85,7 @@ class UserService extends BaseService{
 
     if(strtotime(date(Config::DATE_FORMAT)) - strtotime($db_user['token_created_time']) > 600) throw new Exception("Token expired", 400);
 
-    $this->dao->beginTransaction();
-
     $this->dao->update($db_user['id'], ['password' => md5($user['password']), 'token' => NULL]);
-
-    $this->dao->commit();
 
     return $db_user;
   }
