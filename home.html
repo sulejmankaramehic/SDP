@@ -25,7 +25,7 @@
 
 </head>
 
-<body id="page-top" style="display:none;">
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -207,7 +207,13 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item">
 
-                          <a href="#" onclick="doLogout()" type="button" class="btn btn-light"> Logout</a>
+                          <a class="btn btn-light" type="button" href="login.html">
+                              SIGN IN
+                          </a>
+
+                          <a class="btn btn-primary" type="button" href="register.html">
+                              SIGN UP
+                          </a>
 
                         </li>
 
@@ -220,12 +226,6 @@
 
             </div>
             <!-- End of Main Content -->
-
-            <main id="jqueryspapp" role="main">
-              <section id="dashboard" data-load="dashboard.html" ></section>
-              <section id="colors" data-load="colors.html"></section>
-
-            </main>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -265,26 +265,6 @@
     <script src="./assets/js/demo/chart-area-demo.js"></script>
     <script src="./assets/js/demo/chart-pie-demo.js"></script>
 
-    <script src="./assets/js/jQuerySPApp.js"></script>
-
-    <script type="text/javascript">
-      $(document).ready(function() {
-        var app = $.jQuerySPApp({defaultView  : "dashboard"});
-
-        app.run();
-
-        if (!window.localStorage.getItem("token")){
-              window.location = "home.html";
-            }else{
-              $('body').show();
-            }
-      });
-
-      function doLogout(){
-            window.localStorage.clear();
-            window.location = "home.html";
-          }
-    </script>
 
 </body>
 
