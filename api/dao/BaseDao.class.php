@@ -75,7 +75,6 @@ class BaseDao {
   }
 
   protected function execute_update($table, $id, $entity, $id_cloumn = "id"){
-    $this->connection->beginTransaction();
     $query = "UPDATE ${table} SET ";
     foreach($entity as $name => $value){
       $query .= $name ."= :". $name. ", ";
@@ -87,7 +86,6 @@ class BaseDao {
     $stmt= $this->connection->prepare($query);
     $entity['id'] = $id;
     $stmt->execute($entity);
-    $this->connection->commit();
   }
 
   protected function query_unique($query, $params){
