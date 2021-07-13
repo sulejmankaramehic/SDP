@@ -25,7 +25,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" style="display:none;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -215,6 +215,8 @@
                               SIGN UP
                           </a>
 
+                          <a href="#" onclick="doLogout()" type="button" class="btn btn-light"> Logout</a>
+
                         </li>
 
                     </ul>
@@ -278,7 +280,18 @@
         var app = $.jQuerySPApp({defaultView  : "dashboard"});
 
         app.run();
+
+        if (!window.localStorage.getItem("token")){
+              window.location = "login.html";
+            }else{
+              $('body').show();
+            }
       });
+
+      function doLogout(){
+            window.localStorage.clear();
+            window.location = "index.html";
+          }
     </script>
 
 </body>
