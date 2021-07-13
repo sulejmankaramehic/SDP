@@ -203,18 +203,17 @@
                             </div>
                         </li>
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
+                        <li class="nav-item">
 
-                          <button class="btn btn-primary" type="button">
+                          <a class="btn btn-light" type="button" href="login.html">
                               SIGN IN
-                          </button>
+                          </a>
 
-                          <button class="btn btn-primary" type="button">
+                          <a class="btn btn-primary" type="button">
                               SIGN UP
-                          </button>
+                          </a>
 
                         </li>
 
@@ -276,13 +275,8 @@
 
     <script type="text/javascript">
       $(document).ready(function() {
-        var app = $.jQuerySPApp({defaultView  : "dashboard"}); // initialize
+        var app = $.jQuerySPApp({defaultView  : "dashboard"});
 
-        // define routes
-        app.route({view: 'dashboard', load: 'dashboard.html' });
-        app.route({view: 'colors', load: 'colors.html' });
-
-        // run app
         app.run();
       });
     </script>
