@@ -13,6 +13,14 @@ class BaseDao {
   protected $connection;
   private $table;
 
+  public function beginTransaction(){
+    $response = $this->connection->beginTransaction();
+  }
+
+  public function commit(){
+    $this->connection->commit();
+  }
+
   public function rollBack(){
     $response = $this->connection->rollBack();
   }
@@ -69,6 +77,7 @@ class BaseDao {
   }
 
   protected function execute_update($table, $id, $entity, $id_cloumn = "id"){
+    $this->beginTransaction();
     $query = "UPDATE ${table} SET ";
     foreach($entity as $name => $value){
       $query .= $name ."= :". $name. ", ";
@@ -80,6 +89,7 @@ class BaseDao {
     $stmt= $this->connection->prepare($query);
     $entity['id'] = $id;
     $stmt->execute($entity);
+    $this->commit();
   }
 
   protected function query_unique($query, $params){
