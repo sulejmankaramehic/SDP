@@ -111,7 +111,7 @@
 
             $("#register-link").prop('disabled',true);
             $.post( "api/register", register_info).done(function( data ) {
-              $("#register-form-alert .alert").html(data.message);
+              toastr.success("Activation link has been sent to your mail!");
             }).fail(function(error) {
               $("#register-link").prop('disabled',false);
               toastr.error( error.responseJSON.message );

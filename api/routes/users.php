@@ -36,7 +36,8 @@ Flight::route('POST /register', function(){
  * )
  */
 Flight::route('GET /confirm/@token', function($token){
-  Flight::json(Flight::jwt(Flight::userService()->confirm($token)));
+  Flight::jwt(Flight::userService()->confirm($token));
+  Flight::redirect('https://localhost/SDP/confirmation.html');
 });
 
 /**
