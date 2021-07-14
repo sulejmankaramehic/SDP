@@ -70,7 +70,7 @@ class UserService extends BaseService{
 
     if(strtotime(date(Config::DATE_FORMAT)) - strtotime($db_user['token_created_time']) < 300) throw new Exception("Token is on the way!", 400);
 
-    $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16)), 'token_created_time' => date(Config::DATE_FORMAT)]);
+    $db_user = parent::update($db_user['id'], ['token' => md5(random_bytes(16)), 'token_created_time' => date(Config::DATE_FORMAT)]);
 
     $this->smtpClient->send_recovery_token($db_user);
   }
