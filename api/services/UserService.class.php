@@ -63,21 +63,13 @@ class UserService extends BaseService{
   }
 
   public function forgot($user){
-
     $db_user = $this->dao->get_user_by_email($user['email']);
 
-    if(!isset($db_user['id'])) throw new Exception("User not found", 400);
+    if (!isset($db_user['id'])) throw new Exception("User doesn't exists", 400);
 
-    if(strtotime(date(Config::DATE_FORMAT)) - strtotime($db_user['token_created_time']) < 300) throw new Exception("Token is on the way!", 400);
+    if (strtotime(date(Config::DATE_FORMAT)) - strtotime($db_user['token_created_time']) < 300) throw new Exception("Be patient tokens is on his way", 400);
 
-    try{
-      $db_user = parent::update($db_user['id'],
-      ['token' => md5(random_bytes(16)),
-       'token_created_time' => date(Config::DATE_FORMAT)]);
-    } catch(Exception $e){
-      $this->dao->rollBack();
-      throw $e;
-    }
+    $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16)), 'token_created_time' => date(Config::DATE_FORMAT)]);
 
     $this->smtpClient->send_recovery_token($db_user);
   }

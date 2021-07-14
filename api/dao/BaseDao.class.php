@@ -43,7 +43,7 @@ class BaseDao {
     try {
       $this->connection = new PDO("mysql:host=".Config::DB_HOST().";port=".Config::DB_PORT().";dbname=".Config::DB_SCHEME(), Config::DB_USERNAME(), Config::DB_PASSWORD());
       $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
+      //$this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
       } catch(PDOException $e) {
         throw $e;
     }
@@ -76,20 +76,17 @@ class BaseDao {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  protected function execute_update($table, $id, $entity, $id_cloumn = "id"){
-    $this->connection->beginTransaction();
+  protected function execute_update($table, $id, $entity, $id_column = "id"){
     $query = "UPDATE ${table} SET ";
     foreach($entity as $name => $value){
       $query .= $name ."= :". $name. ", ";
     }
-
-    $query = substr($query, 0 ,-2);
-    $query .= " WHERE ${id_cloumn} = :id";
+    $query = substr($query, 0, -2);
+    $query .= " WHERE ${id_column} = :id";
 
     $stmt= $this->connection->prepare($query);
     $entity['id'] = $id;
     $stmt->execute($entity);
-    $this->connection->commit();
   }
 
   protected function query_unique($query, $params){
