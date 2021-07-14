@@ -26,7 +26,7 @@ class SMTPClient {
     $message = (new Swift_Message('Confirmation link'))
       ->setFrom(['mail.responder2021@gmail.com' => 'Online Tutor Platform'])
       ->setTo([$user['email']])
-      ->setBody('Please verify your account on the following link: https://localhost/SDP/api/confirm/'.$user['token']);
+      ->setBody('Please verify your account on the following link: https://onlinetutoring.sknet.me/api/confirm/'.$user['token']);
 
     // Send the message
     $this->mailer->send($message);
