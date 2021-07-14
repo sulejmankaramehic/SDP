@@ -29,7 +29,6 @@ class UserService extends BaseService{
 
   public function register($user){
     try {
-      $this->dao->beginTransaction();
       $user = parent::add([
         "name"=>$user['name'],
         "last_name"=>$user['last_name'],
@@ -40,7 +39,6 @@ class UserService extends BaseService{
         "status"=>"PENDING",
         "token"=> md5(random_bytes(16))
       ]);
-      $this->dao->commit();
     } catch (Exception $e) {
       $this->dao->rollBack();
       if (strpos($e->getMessage(), 'username_UNIQUE')) {
