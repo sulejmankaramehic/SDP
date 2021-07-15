@@ -31,7 +31,7 @@ class UserDao extends BaseDao{
 
     return $this->query("SELECT *
                          FROM users
-                         WHERE LOWER(name) LIKE CONCAT('%', :name, '%')
+                         WHERE LOWER(name) LIKE CONCAT('%', :name, '%') AND deleted=0
                          ORDER BY ${order_column} ${order_direction}
                          LIMIT ${limit} OFFSET ${offset}",
                          ["name" => strtolower($search)]);

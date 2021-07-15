@@ -87,6 +87,15 @@ class UserService extends BaseService{
     return $db_user;
   }
 
+  public function remove($user){
+
+    $db_user = $this->dao->get_by_id($user['id']);
+
+    $this->dao->update($db_user['id'], ['deleted' => 1]);
+
+    return $db_user;
+  }
+
   public function get_users($search, $offset, $limit, $order){
     if($search){
       return $this->dao->get_users($search, $offset, $limit, $order);

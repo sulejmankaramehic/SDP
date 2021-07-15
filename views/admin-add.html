@@ -1,47 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" type="image/png" href="assets/img/icons8-books-48.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Online Tutoring Platform</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="./assets/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
-
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css">
-
-</head>
-
-<body class="bg-gradient-light">
-
     <div class="container-fluid">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block">
-                      <img src="assets/img/register.jpg" width="650" height="600"></img>
-                    </div>
                     <div class="col-lg-5" style="width: 60%; margin: 0px auto;">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Add a user</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" id="add">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="name"
@@ -69,23 +37,13 @@
                                       <select id="role" name="role">
                                         <option value="BASIC_USER">Student</option>
                                         <option value="TUTOR">Tutor</option>
+                                        <option value="ADMIN">Admin</option>
                                       </select>
                                     </div>
                                 <button id="register-link" onclick="doRegister()" class="btn btn-secondary btn-user btn-block">
                                     Register Account
                                 </button>
                             </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
-                            </div>
-                            <br>
-                            <a href="index.html" class="btn btn-light btn-block">
-                                Return to home page
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -93,22 +51,9 @@
         </div>
 
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="./assets/jquery/jquery.min.js"></script>
-    <script src="./assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="./assets/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="./assets/js/sb-admin-2.min.js"></script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
     <script>
     $(function(){
-      if (window.localStorage.getItem("token")){
+      if (!window.localStorage.getItem("token")){
             window.location = "index.html";
           }
     })
@@ -125,7 +70,8 @@
 
             $("#register-link").prop('disabled',true);
             $.post( "api/register", register_info).done(function( data ) {
-              toastr.success("Activation link has been sent to your mail! Please check your email.");
+              toastr.success("Activation link has been sent! Please check email.");
+              document.getElementById('add').reset();
             }).fail(function(error) {
               $("#register-link").prop('disabled',false);
               toastr.error( error.responseJSON.message );
@@ -133,7 +79,3 @@
 
           }
     </script>
-
-</body>
-
-</html>
