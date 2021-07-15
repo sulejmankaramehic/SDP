@@ -37,7 +37,7 @@ Flight::route('POST /register', function(){
  */
 Flight::route('GET /confirm/@token', function($token){
   Flight::jwt(Flight::userService()->confirm($token));
-  Flight::redirect('https://onlinetutoring.sknet.me/confirmation.html');
+  Flight::redirect('https://lonlinetutoring.sknet.me/confirmation.html');
 });
 
 /**
@@ -99,5 +99,13 @@ Flight::route('POST /reset', function(){
  */
 Flight::route('GET /user/users', function(){
   Flight::json(Flight::userService()->get_by_id(Flight::get('user')['id']));
+});
+
+Flight::route('GET /users', function(){
+  $offset = Flight::query('offset', 0);
+  $limit = Flight::query('limit', 25);
+  $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
+  Flight::json(Flight::userService()->get_users($search, $offset, $limit, $order));
 });
 ?>

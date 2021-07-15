@@ -86,5 +86,13 @@ class UserService extends BaseService{
 
     return $db_user;
   }
+
+  public function get_users($search, $offset, $limit, $order){
+    if($search){
+      return $this->dao->get_users($search, $offset, $limit, $order);
+    }else{
+      return $this->dao->get_all($offset, $limit, $order);
+    }
+  }
 }
 ?>
