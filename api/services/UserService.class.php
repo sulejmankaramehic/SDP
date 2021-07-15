@@ -35,7 +35,7 @@ class UserService extends BaseService{
         "username"=>$user['username'],
         "password"=>md5($user['password']),
         "email"=>$user['email'],
-        "role"=>"BASIC_USER",
+        "role"=>$user['role'],
         "status"=>"PENDING",
         "token"=> md5(random_bytes(16))
       ]);
