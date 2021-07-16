@@ -93,7 +93,7 @@ class UserService extends BaseService{
 
     $db_user = $this->dao->get_by_id($user['id']);
 
-    $this->dao->update($db_user['id'], ['deleted' => 1]);
+    $this->dao->update($db_user['id'], ['deleted' => 1, 'email' => NULL]);
 
     return $db_user;
   }
