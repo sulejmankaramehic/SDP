@@ -20,6 +20,8 @@ class UserService extends BaseService{
 
     if(!isset($db_user['id'])) throw new Exception("User not found", 400);
 
+    if($db_user['deleted'] == 1) throw new Exception("User has been removed!", 400);
+
     if($db_user['status'] != 'ACTIVE') throw new Exception("User not active", 400);
 
     if($db_user['password'] != md5($user['password'])) throw new Exception("Invalid password!", 400);

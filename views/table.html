@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control" name="id" aria-describedby="emailHelp" hidden></input>
+        <input type="text" class="form-control" name="id" id="id" aria-describedby="emailHelp" hidden></input>
         <div class="form-group">
             <label>First name</label>
             <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Enter your first name">
@@ -20,16 +20,20 @@
         </div>
         <div class="form-group">
             <label>Username</label>
-            <input type="email" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter your username">
+            <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter your username">
         </div>
         <div class="form-group">
             <label>Email address</label>
             <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter your email">
         </div>
         <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Enter your password">
-        </div>
+          <label for="role">Select role</label>
+            <select id="role" name="role">
+              <option value="BASIC_USER">Student</option>
+              <option value="TUTOR">Tutor</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -76,7 +80,6 @@
   getUsers();
 
   function getUsers(){
-
     $.ajax({
          url: "api/users",
          type: "GET",
@@ -96,6 +99,7 @@
            }
 
            $("#user-table tbody").html(html);
+           $("#user-table").DataTable();
 
          }
       });
@@ -108,7 +112,56 @@
        toastr.error('User status update failed');
     });
   }
-  function open_edit_modal(){
-  $('#editModal').modal('toggle');
-}
+  function open_edit_modal(id){
+    $('#editModal').modal('toggle');
+    $.ajax({
+         url: "api/users/"+id,
+         type: "GET",
+         success: function(data) {
+           $("#editform input[name=name]").val(data.name);
+           $("#editform input[name=last_name]").val(data.last_name);
+           $("#editform input[name=email]").val(data.email);
+           $("#editform input[name=username]").val(data.username);
+           $("#editform input[name=id]").val(data.id);
+           console.log(data);
+         },
+         error: function(jqXHR, textStatus, errorThrown ){
+           console.log(jqXHR);
+         }
+      });
+  }
+  // function updateUser(user){
+  //   $.ajax({
+  //        url: "api/users/"+user.id,
+  //        type: "PUT",
+  //        data: user,
+  //        contentType: "application/json",
+  //        success: function(data) {
+  //          toastr.success("User has been updated");
+  //          getUsers();
+  //          $("#editform").trigger("reset");
+  //          $("#editform input[name=id]").val("");
+  //          $('#editmodal').modal("hide");
+  //        },
+  //        error: function(jqXHR, textStatus, errorThrown ){
+  //          toastr.error(jqXHR.responseJSON.message);
+  //          console.log(jqXHR);
+  //        }
+  //     });
+  //   }
+
+  $('#editform').validate({
+     submitHandler: function(form, validator){
+       $.post('api/users/'+document.getElementById("id").value, $("#editform").serialize()).done(function(){
+          toastr.success('User updated');
+          $('#editModal').modal('toggle');
+          getUsers();
+        }).fail(function(){
+           toastr.error('User not updated');
+        });
+ }
+
+});
+
+
 </script>

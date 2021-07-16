@@ -113,5 +113,12 @@ Flight::route('POST /remove', function(){
   Flight::json(Flight::jwt(Flight::userService()->remove(Flight::request()->data->getData())));
 });
 
+Flight::route('POST /users/@id', function($id){
+  $data = Flight::request()->data->getData();
+  Flight::userService()->update($id, $data);
+});
 
+Flight::route('GET /users/@id', function($id){
+  Flight::json(Flight::userService()->get_by_id($id));
+});
 ?>
