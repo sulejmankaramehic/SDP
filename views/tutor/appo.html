@@ -1,0 +1,66 @@
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Your Appointments</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="user-table" class="table table-bordered"width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student</th>
+                            <th>Duration</th>
+                            <th>Type</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<!-- /.container-fluid -->
+<script type="text/javascript">
+
+  getAppointments();
+
+  function getAppointments(){
+    $.ajax({
+         url: "api/ppointments",
+         type: "GET",
+         beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+         success: function(data) {
+           var html = "";
+           for(var i = 0; i < data.length; i++){
+             html += '<tr class="odd">'
+                 +'<td>'+data[i].id+'</td>'
+                 +'<td>'+data[i].name+'</td>'
+                 +'<td>'+data[i].last_name+'</td>'
+                 +'<td>'+data[i].username+'</td>'
+                 +'<td>'+data[i].email+'</td>'
+                 +'<td>'+data[i].role+'</td>'
+                 +'<td><button type="button" class="btn btn-info" id="delete" onclick="open_edit_modal('+data[i].id+');">Edit</button></td>'
+                 +'<td><button type="button" class="btn btn-danger" onclick="remove_user('+data[i].id+');">Remove</button></td></tr>';
+           }
+
+           $("#user-table tbody").html(html);
+           $("#user-table").DataTable();
+
+         }
+      });
+  }
+  function remove_user(id){
+    $.post('api/remove', {id: id}).done(function(){
+      toastr.success('User status updated');
+      getUsers();
+    }).fail(function(){
+       toastr.error('User status update failed');
+    });
+  }
+
+
+</script>

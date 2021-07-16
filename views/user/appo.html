@@ -94,8 +94,7 @@
                  +'<td>'+data[i].username+'</td>'
                  +'<td>'+data[i].email+'</td>'
                  +'<td>'+data[i].role+'</td>'
-                 +'<td><button type="button" class="btn btn-info" id="delete" onclick="open_edit_modal('+data[i].id+');">Edit</button></td>'
-                 +'<td><button type="button" class="btn btn-danger" onclick="remove_user('+data[i].id+');">Remove</button></td></tr>';
+                 +'<td><button type="button" class="btn btn-danger" onclick="remove_user('+data[i].id+');">Cancle</button></td></tr>';
            }
 
            $("#user-table tbody").html(html);
@@ -112,37 +111,6 @@
        toastr.error('User status update failed');
     });
   }
-  function open_edit_modal(id){
-    $('#editModal').modal('toggle');
-    $.ajax({
-         url: "api/users/"+id,
-         type: "GET",
-         success: function(data) {
-           $("#editform input[name=name]").val(data.name);
-           $("#editform input[name=last_name]").val(data.last_name);
-           $("#editform input[name=email]").val(data.email);
-           $("#editform input[name=username]").val(data.username);
-           $("#editform input[name=id]").val(data.id);
-           console.log(data);
-         },
-         error: function(jqXHR, textStatus, errorThrown ){
-           console.log(jqXHR);
-         }
-      });
-  }
-
-  $('#editform').validate({
-     submitHandler: function(form, validator){
-       $.post('api/users/'+document.getElementById("id").value, $("#editform").serialize()).done(function(){
-          toastr.success('User updated');
-          $('#editModal').modal('toggle');
-          getUsers();
-        }).fail(function(){
-           toastr.error('User not updated');
-        });
- }
-
-});
 
 
 </script>

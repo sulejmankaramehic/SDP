@@ -5,7 +5,8 @@ error_reporting(E_ALL);
 
 require_once dirname(__FILE__).'/../vendor/autoload.php';
 require_once dirname(__FILE__).'/services/UserService.class.php';
-require_once dirname(__FILE__).'/services/AccountService.class.php';
+require_once dirname(__FILE__).'/services/ClassesService.class.php';
+require_once dirname(__FILE__).'/services/AppointmentsService.class.php';
 
 Flight::set('flight.log_errors', true);
 
@@ -48,11 +49,17 @@ Flight::route('GET /', function(){
 /* Registering Business logic layer services*/
 Flight::register('userService','UserService');
 Flight::register('accountService','AccountService');
+Flight::register('classesService','ClassesService');
+Flight::register('appointmentsService','AppointmentsService');
+
 
 /* Including all routes*/
 require_once dirname(__FILE__).'/routes/middleware.php';
 require_once dirname(__FILE__).'/routes/users.php';
 require_once dirname(__FILE__).'/routes/accounts.php';
+require_once dirname(__FILE__).'/routes/appointments.php';
+require_once dirname(__FILE__).'/routes/classes.php';
+
 
 Flight::start();
 
