@@ -18,7 +18,6 @@ class AccountService extends BaseService{
   }
 
   public function add($account){
-    //validation
     if(!isset($account['name'])) throw new Exception("Name is missing!");
 
     return parent::add($account);

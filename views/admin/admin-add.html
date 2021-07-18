@@ -74,7 +74,7 @@
               document.getElementById('add').reset();
             }).fail(function(error) {
               $("#register-link").prop('disabled',false);
-              toastr.error( error.responseJSON.message );
+              toastr.error("Please fill all the boxes with correct data");
             });
 
           }

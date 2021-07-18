@@ -43,8 +43,8 @@ class UserService extends BaseService{
       ]);
     } catch (Exception $e) {
       $this->dao->rollBack();
-      if (strpos($e->getMessage(), 'username_UNIQUE')) {
-       throw new Exception("Username in use already", 400, $e);
+      if (strpos($e->getMessage(), 'comply with RFC 2822, 3.6.2.')) {
+       throw new Exception("Please enter email in correct format", 400, $e);
      }else{
        throw $e;
      }

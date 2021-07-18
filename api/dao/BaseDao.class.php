@@ -112,7 +112,6 @@ class BaseDao {
 
     return $this->query("SELECT *
                          FROM ".$this->table."
-                         WHERE deleted=0
                          ORDER BY ${order_column} ${order_direction}
                          LIMIT ${limit} OFFSET ${offset}", []);
   }
