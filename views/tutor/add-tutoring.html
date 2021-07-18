@@ -22,7 +22,7 @@
                                 </div>
                                   <div class="form-group">
                                     <label for="role">Duration</label>
-                                      <select id="role" name="role" class="form-control">
+                                      <select id="duration" name="duration" class="form-control">
                                         <option value="1hour">1h</option>
                                         <option value="2hours">2h</option>
                                         <option value="3hours">3h</option>
@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="role">Type</label>
-                                        <select id="role" name="role" class="form-control">
+                                        <select id="type" name="type" class="form-control">
                                           <option value="Online">Online</option>
                                           <option value="In person">In person</option>
                                         </select>
@@ -40,7 +40,7 @@
                                           <input class="form-control" type="datetime-local" id="date">
                                         </div>
                                 <button id="add-link" onclick="addService()" class="btn btn-secondary btn-user btn-block">
-                                    Add class
+                                    Add tutoring
                                 </button>
                             </form>
                         </div>
@@ -58,12 +58,14 @@
     })
 
     function addService(){
+      var user_info = parse_jwt(window.localStorage.getItem("token"));
             var register_info = {
               "name" : $("#name").val(),
               "subject" : $("#subject").val(),
               "duration" : $("#duration").val(),
               "type" : $("#type").val(),
-              "date" : $("#date").val()
+              "date" : $("#date").val(),
+              "tutorid" : user_info.id,
             };
 
             $("#add-link").prop('disabled',true);
