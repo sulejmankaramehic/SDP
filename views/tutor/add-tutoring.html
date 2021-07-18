@@ -7,7 +7,7 @@
                     <div class="col-lg-5" style="width: 60%; margin: 0px auto;">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Add service</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Add Tutoring Information</h1>
                             </div>
                             <form class="user" id="add">
                                 <div class="form-group">
@@ -32,12 +32,12 @@
                                       <label for="role">Type</label>
                                         <select id="role" name="role" class="form-control">
                                           <option value="Online">Online</option>
-                                          <option value="In person">Face to face</option>
+                                          <option value="In person">In person</option>
                                         </select>
                                       </div>
                                       <div class="form-group">
                                         <label for="role">Time and date</label>
-                                          <input class="form-control" type="datetime-local" id="time">
+                                          <input class="form-control" type="datetime-local" id="date">
                                         </div>
                                 <button id="add-link" onclick="addService()" class="btn btn-secondary btn-user btn-block">
                                     Add class
@@ -63,7 +63,7 @@
               "subject" : $("#subject").val(),
               "duration" : $("#duration").val(),
               "type" : $("#type").val(),
-              "time" : $("#time").val()
+              "date" : $("#date").val()
             };
 
             $("#add-link").prop('disabled',true);

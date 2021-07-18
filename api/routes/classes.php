@@ -41,9 +41,9 @@ Flight::route('GET /admin/accounts/@id', function($id){
  *     @OA\Response(response="200", description="Add account")
  * )
  */
-Flight::route('POST /admin/accounts', function(){
+Flight::route('POST /classes', function(){
   $data = Flight::request()->data->getData();
-  Flight::json(Flight::accountService()->add($data));
+  Flight::json(Flight::classesService()->add($data));
 });
 
 /**

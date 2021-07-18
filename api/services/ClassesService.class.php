@@ -14,7 +14,6 @@ class ClassesService extends BaseService{
   }
 
   public function add($classes){
-    if(!isset($account['name'])) throw new Exception("Name is missing!");
 
     return parent::add($classes);
   }
