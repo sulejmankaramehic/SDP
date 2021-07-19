@@ -29,19 +29,22 @@ class ClassesService extends BaseService{
 
   public function booked($class){
 
-    $classes = $this->dao->get_by_id($class['id']);
-
-    $this->dao->update($class['id'], ['booked' => 1]);
-
-    return $classes;
+      $class = parent::update($class['id'],[
+        "booked"=>$class['booked'],
+        "bookedby"=>$class['bookedby']
+      ]);
   }
 
-  public function get_classes_for_user($search, $offset, $limit, $order){
-      return $this->dao->get_classes_for_user($search, $offset, $limit, $order);
+  public function get_classes_for_user($search, $offset, $limit, $order, $id){
+      return $this->dao->get_classes_for_user($search, $offset, $limit, $order, $id);
   }
 
   public function get_classes_for_tutor($search, $offset, $limit, $order){
       return $this->dao->get_classes_for_tutor($search, $offset, $limit, $order);
+  }
+
+  public function get_classes_for_tutorbooked($search, $offset, $limit, $order, $id){
+      return $this->dao->get_classes_for_tutorbooked($search, $offset, $limit, $order, $id);
   }
 
   public function get_classes_booked($search, $offset, $limit, $order){
@@ -50,6 +53,10 @@ class ClassesService extends BaseService{
 
   public function get_appo($search, $offset, $limit, $order){
       return $this->dao->get_appo($search, $offset, $limit, $order);
+  }
+
+  public function get_tutorappo($search, $offset, $limit, $order){
+      return $this->dao->get_tutorappo($search, $offset, $limit, $order);
   }
 }
 ?>

@@ -67,12 +67,12 @@
 <!-- /.container-fluid -->
 <script type="text/javascript">
 
-  getUsers();
+  getUser();
 
-  function getUsers(){
-  //var user_info = parse_jwt(window.localStorage.getItem("token"));
+  function getUser(){
+  var user_info = parse_jwt(window.localStorage.getItem("token"));
     $.ajax({
-         url: "api/users",
+         url: "api/usersedit/"+user_info.id,
          type: "GET",
          beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
          success: function(data) {

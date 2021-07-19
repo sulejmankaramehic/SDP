@@ -30,8 +30,9 @@
   getClasses();
 
   function getClasses(){
+      var info = parse_jwt(window.localStorage.getItem("token"));
     $.ajax({
-         url: "api/classesuser",
+         url: "api/classesuser/"+info.id,
          type: "GET",
          beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
          success: function(data) {

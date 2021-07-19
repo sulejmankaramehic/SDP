@@ -78,7 +78,7 @@ Flight::route('POST /classes/remove', function(){
   Flight::json(Flight::classesService()->remove(Flight::request()->data->getData()));
 });
 
-Flight::route('POST /classes/book', function(){
+Flight::route('POST /booked', function(){
   Flight::json(Flight::classesService()->booked(Flight::request()->data->getData()));
 });
 
@@ -91,13 +91,13 @@ Flight::route('GET /classes/@id', function($id){
   Flight::json(Flight::classesService()->get_by_id($id));
 });
 
-Flight::route('GET /classesuser', function(){
+Flight::route('GET /classesuser/@id', function($id){
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 25);
   $search = Flight::query('search');
   $order = Flight::query('order', "-id");
 
-  Flight::json(Flight::classesService()->get_classes_for_user($search, $offset, $limit, $order));
+  Flight::json(Flight::classesService()->get_classes_for_user($search, $offset, $limit, $order, $id));
 });
 
 Flight::route('POST /classes/unbook', function(){
@@ -111,6 +111,15 @@ Flight::route('GET /classestutor', function(){
   $order = Flight::query('order', "-id");
 
   Flight::json(Flight::classesService()->get_classes_for_tutor($search, $offset, $limit, $order));
+});
+
+Flight::route('GET /classestutorbook/@id', function($id){
+  $offset = Flight::query('offset', 0);
+  $limit = Flight::query('limit', 25);
+  $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
+
+  Flight::json(Flight::classesService()->get_classes_for_tutorbooked($search, $offset, $limit, $order, $id));
 });
 
 Flight::route('GET /classesbooked', function(){
@@ -129,5 +138,14 @@ Flight::route('GET /appo', function(){
   $order = Flight::query('order', "-id");
 
   Flight::json(Flight::classesService()->get_appo($search, $offset, $limit, $order));
+});
+
+Flight::route('GET /appotut/@id', function(){
+  $offset = Flight::query('offset', 0);
+  $limit = Flight::query('limit', 25);
+  $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
+
+  Flight::json(Flight::classesService()->get_tutorappo($search, $offset, $limit, $order));
 });
 ?>

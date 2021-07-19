@@ -34,14 +34,27 @@ class ClassesDao extends BaseDao{
                          ["name" => strtolower($search)]);
   }
 
-  public function get_classes_for_user($search, $offset, $limit, $order){
+  public function get_classes_for_user($search, $offset, $limit, $order, $id){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
-    return $this->query("SELECT c.id,c.subject,c.booked,c.name,c.duration,c.type,c.date,u.name as tutor
+    return $this->query("SELECT c.id,c.subject,c.booked,c.name,c.duration,c.type,c.date
                          FROM classes c
                          INNER JOIN users u ON u.id=c.bookedby
-                         WHERE c.deleted=0 AND c.booked=1
+                         WHERE c.deleted=0 AND c.booked=1 and u.id=${id}
+                         ORDER BY c.${order_column} ${order_direction}
+                         LIMIT ${limit} OFFSET ${offset}",
+                         ["name" => strtolower($search)]);
+  }
+
+  public function get_classes_for_tutorbooked($search, $offset, $limit, $order, $id){
+
+    list($order_column, $order_direction) = self::parse_order($order);
+
+    return $this->query("SELECT c.id,c.subject,c.booked,c.name,c.duration,c.type,c.date
+                         FROM classes c
+                         INNER JOIN users u ON u.id=c.tutorid
+                         WHERE c.deleted=0 AND c.booked=1 and u.id=${id}
                          ORDER BY c.${order_column} ${order_direction}
                          LIMIT ${limit} OFFSET ${offset}",
                          ["name" => strtolower($search)]);
@@ -69,6 +82,20 @@ class ClassesDao extends BaseDao{
                           INNER JOIN users u ON c.tutorid=u.id
                           INNER JOIN users l ON c.bookedby=l.id
                          WHERE c.deleted=0 AND c.booked=1
+                         ORDER BY c.${order_column} ${order_direction}
+                         LIMIT ${limit} OFFSET ${offset}",
+                         ["name" => strtolower($search)]);
+  }
+
+  public function get_tutorappo($search, $offset, $limit, $order, $id){
+
+    list($order_column, $order_direction) = self::parse_order($order);
+
+    return $this->query("SELECT c.id,c.name AS Subjcet, u.name AS tutor, l.name AS student, c.date, c.type, c.duration, u.id
+                          FROM classes c
+                          INNER JOIN users u ON c.tutorid=u.id
+                          INNER JOIN users l ON c.bookedby=l.id
+                         WHERE c.deleted=0 AND c.booked=1 and u.id=${id}
                          ORDER BY c.${order_column} ${order_direction}
                          LIMIT ${limit} OFFSET ${offset}",
                          ["name" => strtolower($search)]);

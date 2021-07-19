@@ -105,5 +105,13 @@ class UserService extends BaseService{
       return $this->dao->get_all($offset, $limit, $order);
     }
   }
+
+  public function get_usersedit($search, $offset, $limit, $order, $id){
+      return $this->dao->get_usersedit($search, $offset, $limit, $order, $id);
+  }
+
+  public function get_tutoredit($search, $offset, $limit, $order, $id){
+      return $this->dao->get_tutoredit($search, $offset, $limit, $order, $id);
+  }
 }
 ?>

@@ -121,4 +121,20 @@ Flight::route('POST /users/@id', function($id){
 Flight::route('GET /users/@id', function($id){
   Flight::json(Flight::userService()->get_by_id($id));
 });
+
+Flight::route('GET /usersedit/@id', function($id){
+  $offset = Flight::query('offset', 0);
+  $limit = Flight::query('limit', 25);
+  $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
+  Flight::json(Flight::userService()->get_usersedit($search, $offset, $limit, $order, $id));
+});
+
+Flight::route('GET /tutoredit/@id', function($id){
+  $offset = Flight::query('offset', 0);
+  $limit = Flight::query('limit', 25);
+  $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
+  Flight::json(Flight::userService()->get_tutoredit($search, $offset, $limit, $order, $id));
+});
 ?>

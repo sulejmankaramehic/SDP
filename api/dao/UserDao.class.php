@@ -36,6 +36,30 @@ class UserDao extends BaseDao{
                          LIMIT ${limit} OFFSET ${offset}",
                          ["name" => strtolower($search)]);
   }
+
+  public function get_usersedit($search, $offset, $limit, $order, $id){
+
+    list($order_column, $order_direction) = self::parse_order($order);
+
+    return $this->query("SELECT *
+                         FROM users
+                         WHERE  id=${id}
+                         ORDER BY ${order_column} ${order_direction}
+                         LIMIT ${limit} OFFSET ${offset}",
+                         ["name" => strtolower($search)]);
+  }
+
+  public function get_tutoredit($search, $offset, $limit, $order, $id){
+
+    list($order_column, $order_direction) = self::parse_order($order);
+
+    return $this->query("SELECT *
+                         FROM users
+                         WHERE  id=${id}
+                         ORDER BY ${order_column} ${order_direction}
+                         LIMIT ${limit} OFFSET ${offset}",
+                         ["name" => strtolower($search)]);
+  }
 }
 
 ?>

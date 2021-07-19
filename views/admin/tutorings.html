@@ -12,27 +12,30 @@
         <input type="text" class="form-control" name="id" id="id" aria-describedby="emailHelp" hidden></input>
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Enter your first name">
+            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" >
         </div>
         <div class="form-group">
             <label>Subject</label>
-            <input type="text" class="form-control" name="subject" aria-describedby="emailHelp" placeholder="Enter your last name">
+            <input type="text" class="form-control" name="subject" aria-describedby="emailHelp" >
         </div>
         <div class="form-group">
             <label>Duration</label>
-            <input type="text" class="form-control" name="duration" aria-describedby="emailHelp" placeholder="Enter your username">
-        </div>
-        <div class="form-group">
-            <label>Tutor</label>
-            <input type="text" class="form-control" name="tutorid" aria-describedby="emailHelp" placeholder="Enter your email">
+            <select id="duration" name="duration" class="form-control">
+              <option value="1hour">1h</option>
+              <option value="2hours">2h</option>
+              <option value="3hours">3h</option>
+            </select>
         </div>
         <div class="form-group">
             <label>Type</label>
-            <input type="text" class="form-control" name="type" aria-describedby="emailHelp" placeholder="Enter your email">
+            <select id="type" name="type" class="form-control">
+              <option value="Online">Online</option>
+              <option value="In person">In person</option>
+            </select>
         </div>
         <div class="form-group">
             <label>Date</label>
-            <input type="text" class="form-control" name="date" aria-describedby="emailHelp" placeholder="Enter your email">
+            <input type="datetime-local" class="form-control" name="date" aria-describedby="emailHelp" >
         </div>
       </div>
       <div class="modal-footer">
@@ -123,7 +126,6 @@
            $("#editform input[name=name]").val(data.name);
            $("#editform input[name=subject]").val(data.subject);
            $("#editform input[name=duration]").val(data.duration);
-           $("#editform input[name=tutorid]").val(data.tutorid);
            $("#editform input[name=type]").val(data.type);
            $("#editform input[name=date]").val(data.date);
            $("#editform input[name=id]").val(data.id);
