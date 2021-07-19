@@ -21,6 +21,19 @@ class ClassesDao extends BaseDao{
                          ["name" => strtolower($search)]);
   }
 
+  public function get_classesadmin($search, $offset, $limit, $order){
+
+    list($order_column, $order_direction) = self::parse_order($order);
+
+    return $this->query("SELECT c.id,c.name,c.subject,c.duration,c.type,c.date, u.name AS tutorid
+                          FROM classes c
+                          INNER JOIN users u ON u.id=c.tutorid
+                          WHERE c.deleted=0 AND c.booked=0
+                         ORDER BY c.${order_column} ${order_direction}
+                         LIMIT ${limit} OFFSET ${offset}",
+                         ["name" => strtolower($search)]);
+  }
+
   public function get_classes_for_tutor($search, $offset, $limit, $order){
 
     list($order_column, $order_direction) = self::parse_order($order);

@@ -85,7 +85,7 @@
 
   function getClasses(){
     $.ajax({
-         url: "api/classes",
+         url: "api/classesadmin",
          type: "GET",
          beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
          success: function(data) {
