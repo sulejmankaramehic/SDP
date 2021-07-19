@@ -48,5 +48,8 @@ class ClassesService extends BaseService{
       return $this->dao->get_classes_booked($search, $offset, $limit, $order);
   }
 
+  public function get_appo($search, $offset, $limit, $order){
+      return $this->dao->get_appo($search, $offset, $limit, $order);
+  }
 }
 ?>

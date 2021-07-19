@@ -122,4 +122,12 @@ Flight::route('GET /classesbooked', function(){
   Flight::json(Flight::classesService()->get_classes_booked($search, $offset, $limit, $order));
 });
 
+Flight::route('GET /appo', function(){
+  $offset = Flight::query('offset', 0);
+  $limit = Flight::query('limit', 25);
+  $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
+
+  Flight::json(Flight::classesService()->get_appo($search, $offset, $limit, $order));
+});
 ?>

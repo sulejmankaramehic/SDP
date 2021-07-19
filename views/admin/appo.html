@@ -10,11 +10,9 @@
                 <table id="user-table" class="table table-bordered"width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Duration</th>
-                            <th>Type</th>
-                            <th>Date</th>
-                            <th>Booked by</th>
+                            <th>Subject</th>
+                            <th>Tutor</th>
+                            <th>Student</th>
                             <th>Remove</th>
                         </tr>
                     </thead>
@@ -34,17 +32,15 @@
 
   function getAppointments(){
     $.ajax({
-         url: "api/classesbooked",
+         url: "api/appo",
          type: "GET",
          beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
          success: function(data) {
            var html = "";
            for(var i = 0; i < data.length; i++){
              html += '<tr class="odd">'
-                 +'<td>'+data[i].name+'</td>'
-                 +'<td>'+data[i].duration+'</td>'
-                 +'<td>'+data[i].type+'</td>'
-                 +'<td>'+data[i].date+'</td>'
+                 +'<td>'+data[i].Subjcet+'</td>'
+                 +'<td>'+data[i].tutor+'</td>'
                  +'<td>'+data[i].student+'</td>'
                  +'<td><button type="button" class="btn btn-danger" onclick="remove_user('+data[i].id+');">Remove</button></td></tr>';
            }
