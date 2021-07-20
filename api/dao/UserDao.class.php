@@ -48,7 +48,7 @@ class UserDao extends BaseDao{
                          LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
-  public function get_tutoredit($search, $offset, $limit, $order, $id){
+  public function get_tutoredit($offset, $limit, $order, $id){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
