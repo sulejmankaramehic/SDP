@@ -39,28 +39,28 @@ class ClassesService extends BaseService{
       ]);
   }
 
-  public function get_classes_for_user($search, $offset, $limit, $order, $id){
-      return $this->dao->get_classes_for_user($search, $offset, $limit, $order, $id);
+  public function get_classes_for_user($offset, $limit, $order, $id){
+      return $this->dao->get_classes_for_user($offset, $limit, $order, $id);
   }
 
-  public function get_classes_for_tutor($search, $offset, $limit, $order){
-      return $this->dao->get_classes_for_tutor($search, $offset, $limit, $order);
+  public function get_classes_for_tutor($offset, $limit, $order){
+      return $this->dao->get_classes_for_tutor($offset, $limit, $order);
   }
 
-  public function get_classes_for_tutorbooked($search, $offset, $limit, $order, $id){
-      return $this->dao->get_classes_for_tutorbooked($search, $offset, $limit, $order, $id);
+  public function get_classes_for_tutorbooked($offset, $limit, $order, $id){
+      return $this->dao->get_classes_for_tutorbooked($offset, $limit, $order, $id);
   }
 
-  public function get_classes_booked($search, $offset, $limit, $order){
-      return $this->dao->get_classes_booked($search, $offset, $limit, $order);
+  public function get_classes_booked($offset, $limit, $order){
+      return $this->dao->get_classes_booked($offset, $limit, $order);
   }
 
-  public function get_appo($search, $offset, $limit, $order){
-      return $this->dao->get_appo($search, $offset, $limit, $order);
+  public function get_appo($offset, $limit, $order){
+      return $this->dao->get_appo($offset, $limit, $order);
   }
 
-  public function get_tutorappo($search, $offset, $limit, $order){
-      return $this->dao->get_tutorappo($search, $offset, $limit, $order);
+  public function get_tutorappo($offset, $limit, $order){
+      return $this->dao->get_tutorappo($offset, $limit, $order);
   }
 }
 ?>

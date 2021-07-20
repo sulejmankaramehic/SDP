@@ -37,7 +37,7 @@ class UserDao extends BaseDao{
                          ["name" => strtolower($search)]);
   }
 
-  public function get_usersedit($search, $offset, $limit, $order, $id){
+  public function get_usersedit($offset, $limit, $order, $id){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -45,8 +45,7 @@ class UserDao extends BaseDao{
                          FROM users
                          WHERE  id=${id}
                          ORDER BY ${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
   public function get_tutoredit($search, $offset, $limit, $order, $id){
@@ -57,8 +56,7 @@ class UserDao extends BaseDao{
                          FROM users
                          WHERE  id=${id}
                          ORDER BY ${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 }
 

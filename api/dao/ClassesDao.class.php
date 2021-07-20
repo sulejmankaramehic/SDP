@@ -32,7 +32,7 @@ class ClassesDao extends BaseDao{
                          LIMIT ${limit} OFFSET ${offset}", []);
   }
 
-  public function get_classes_for_tutor($search, $offset, $limit, $order){
+  public function get_classes_for_tutor($offset, $limit, $order){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -41,11 +41,10 @@ class ClassesDao extends BaseDao{
                          INNER JOIN users u ON u.id=c.tutorid
                          WHERE c.deleted=0 AND c.booked=0
                          ORDER BY c.${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
-  public function get_classes_for_user($search, $offset, $limit, $order, $id){
+  public function get_classes_for_user($offset, $limit, $order, $id){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -54,11 +53,10 @@ class ClassesDao extends BaseDao{
                          INNER JOIN users u ON u.id=c.bookedby
                          WHERE c.deleted=0 AND c.booked=1 and u.id=${id}
                          ORDER BY c.${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
-  public function get_classes_for_tutorbooked($search, $offset, $limit, $order, $id){
+  public function get_classes_for_tutorbooked($offset, $limit, $order, $id){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -67,11 +65,10 @@ class ClassesDao extends BaseDao{
                          INNER JOIN users u ON u.id=c.tutorid
                          WHERE c.deleted=0 AND c.booked=1 and u.id=${id}
                          ORDER BY c.${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
-  public function get_classes_booked($search, $offset, $limit, $order){
+  public function get_classes_booked($offset, $limit, $order){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -80,11 +77,10 @@ class ClassesDao extends BaseDao{
                          INNER JOIN users u ON u.id=c.bookedby
                          WHERE c.deleted=0 AND c.booked=1
                          ORDER BY c.${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
-  public function get_appo($search, $offset, $limit, $order){
+  public function get_appo($offset, $limit, $order){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -94,11 +90,10 @@ class ClassesDao extends BaseDao{
                           INNER JOIN users l ON c.bookedby=l.id
                          WHERE c.deleted=0 AND c.booked=1
                          ORDER BY c.${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
-  public function get_tutorappo($search, $offset, $limit, $order, $id){
+  public function get_tutorappo($offset, $limit, $order, $id){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -108,8 +103,7 @@ class ClassesDao extends BaseDao{
                           INNER JOIN users l ON c.bookedby=l.id
                          WHERE c.deleted=0 AND c.booked=1 and u.id=${id}
                          ORDER BY c.${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 }
 ?>
