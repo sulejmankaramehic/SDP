@@ -68,7 +68,7 @@
               "tutorid" : user_info.id,
             };
 
-            $("#add-link").prop('disabled',true);
+            $("#add-link").prop('disabled',false);
             $.post( "api/classes", register_info).done(function( data ) {
               toastr.success("Class has been added");
               document.getElementById('add').reset();
