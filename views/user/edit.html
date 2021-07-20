@@ -112,11 +112,11 @@
   $('#editform').validate({
      submitHandler: function(form, validator){
        $.post('api/users/'+document.getElementById("id").value, $("#editform").serialize()).done(function(){
-          toastr.success('User updated');
+          toastr.success('Data updated');
           $('#editModal').modal('toggle');
           getUser();
         }).fail(function(){
-           toastr.error('User not updated');
+           toastr.error('Data not updated, try again');
         });
  }
 

@@ -54,10 +54,10 @@
   }
   function remove_user(id){
     $.post('api/remove', {id: id}).done(function(){
-      toastr.success('User status updated');
+      toastr.success('Appointment has been removed');
       getUsers();
     }).fail(function(){
-       toastr.error('User status update failed');
+       toastr.error('Appointment has not been removed, try again!');
     });
   }
 

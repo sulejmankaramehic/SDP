@@ -70,7 +70,7 @@
 
             $("#register-link").prop('disabled',true);
             $.post( "api/register", register_info).done(function( data ) {
-              toastr.success("Activation link has been sent! Please check email.");
+              toastr.success("Activation link has been sent to added users email! Please check email.");
               document.getElementById('add').reset();
             }).fail(function(error) {
               $("#register-link").prop('disabled',false);
