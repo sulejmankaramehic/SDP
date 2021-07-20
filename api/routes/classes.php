@@ -11,10 +11,9 @@
 Flight::route('GET /classes', function(){
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 25);
-  $search = Flight::query('search');
   $order = Flight::query('order', "-id");
 
-  Flight::json(Flight::classesService()->get_classes($search, $offset, $limit, $order));
+  Flight::json(Flight::classesService()->get_classes($offset, $limit, $order));
 });
 
 /**
@@ -152,9 +151,8 @@ Flight::route('GET /appotut/@id', function(){
 Flight::route('GET /classesadmin', function(){
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 25);
-  $search = Flight::query('search');
   $order = Flight::query('order', "-id");
 
-  Flight::json(Flight::classesService()->get_classesadmin($search, $offset, $limit, $order));
+  Flight::json(Flight::classesService()->get_classesadmin($offset, $limit, $order));
 });
 ?>

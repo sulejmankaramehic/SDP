@@ -9,7 +9,7 @@ class ClassesDao extends BaseDao{
 
   }
 
-  public function get_classes($search, $offset, $limit, $order){
+  public function get_classes($offset, $limit, $order){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -17,11 +17,10 @@ class ClassesDao extends BaseDao{
                          FROM classes
                          WHERE booked=0 and deleted=0
                          ORDER BY ${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}",[]);
   }
 
-  public function get_classesadmin($search, $offset, $limit, $order){
+  public function get_classesadmin($offset, $limit, $order){
 
     list($order_column, $order_direction) = self::parse_order($order);
 
@@ -30,8 +29,7 @@ class ClassesDao extends BaseDao{
                           INNER JOIN users u ON u.id=c.tutorid
                           WHERE c.deleted=0 AND c.booked=0
                          ORDER BY c.${order_column} ${order_direction}
-                         LIMIT ${limit} OFFSET ${offset}",
-                         ["name" => strtolower($search)]);
+                         LIMIT ${limit} OFFSET ${offset}", []);
   }
 
   public function get_classes_for_tutor($search, $offset, $limit, $order){

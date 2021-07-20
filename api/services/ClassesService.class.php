@@ -9,12 +9,12 @@ class ClassesService extends BaseService{
     $this->dao = new ClassesDao();
   }
 
-  public function get_classes($search, $offset, $limit, $order){
-      return $this->dao->get_classes($search, $offset, $limit, $order);
+  public function get_classes($offset, $limit, $order){
+      return $this->dao->get_classes($offset, $limit, $order);
   }
 
-  public function get_classesadmin($search, $offset, $limit, $order){
-      return $this->dao->get_classesadmin($search, $offset, $limit, $order);
+  public function get_classesadmin($offset, $limit, $order){
+      return $this->dao->get_classesadmin($offset, $limit, $order);
   }
 
   public function add($classes){
