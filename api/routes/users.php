@@ -104,9 +104,8 @@ Flight::route('GET /user/users', function(){
 Flight::route('GET /users', function(){
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 25);
-  $search = Flight::query('search');
   $order = Flight::query('order', "-id");
-  Flight::json(Flight::userService()->get_users($search, $offset, $limit, $order));
+  Flight::json(Flight::userService()->get_users($offset, $limit, $order));
 });
 
 Flight::route('POST /remove', function(){
@@ -135,4 +134,6 @@ Flight::route('GET /tutoredit/@id', function($id){
   $order = Flight::query('order', "-id");
   Flight::json(Flight::userService()->get_tutoredit($offset, $limit, $order, $id));
 });
+
+
 ?>

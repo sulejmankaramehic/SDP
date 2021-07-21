@@ -106,10 +106,10 @@
   }
   function remove_user(id){
     $.post('api/remove', {id: id}).done(function(){
-      toastr.success('User status updated');
+      toastr.success('User has been removed');
       getUsers();
     }).fail(function(){
-       toastr.error('User status update failed');
+       toastr.error('Something went wrong');
     });
   }
   function open_edit_modal(id){

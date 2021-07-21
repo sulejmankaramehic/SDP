@@ -28,9 +28,9 @@
 <script type="text/javascript">
 
 
-    getClasses();
+    getClasses1();
 
-    function getClasses(){
+    function getClasses1(){
       $.ajax({
            url: "api/classes",
            type: "GET",
@@ -64,7 +64,7 @@
       console.log(register_info);
       $.post('api/booked', register_info).done(function(){
         toastr.success('Booked succesfully');
-        getClasses();
+        getClasses1();
       }).fail(function(){
          toastr.error('Please try again!');
       });
