@@ -19,6 +19,9 @@ class ClassesService extends BaseService{
 
   public function add($classes){
 
+    if($classes['name'] == NULL) throw new Exception("Name field missing!", 400);
+    if($classes['subject']== NULL) throw new Exception("Subject field missing!", 400);
+
     return parent::add($classes);
   }
 

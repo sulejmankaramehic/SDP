@@ -37,7 +37,7 @@
                                       </div>
                                       <div class="form-group">
                                         <label for="role">Date</label>
-                                          <input class="form-control" type="date" id="date">
+                                          <input class="form-control" type="date" id="date" value="2021-07-23" required>
                                         </div>
                                 <button id="add-link" onclick="addService()" class="btn btn-secondary btn-user btn-block">
                                     Add tutoring
@@ -68,13 +68,11 @@
               "tutorid" : user_info.id,
             };
 
-            $("#add-link").prop('disabled',false);
             $.post( "api/classes", register_info).done(function( data ) {
               toastr.success("Class has been added");
               document.getElementById('add').reset();
             }).fail(function(error) {
-              $("#add-link").prop('disabled',false);
-              toastr.error("Please fill all the fields");
+              toastr.error(error.responseJSON.message);
             });
 
           }

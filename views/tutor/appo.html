@@ -53,9 +53,9 @@
       });
   }
   function remove_user(id){
-    $.post('api/remove', {id: id}).done(function(){
+    $.post('api/appo/remove', {id: id}).done(function(){
       toastr.success('Appointment has been removed');
-      getUsers();
+      getAppointments();
     }).fail(function(){
        toastr.error('Appointment has not been removed, try again!');
     });

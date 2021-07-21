@@ -77,6 +77,10 @@ Flight::route('POST /classes/remove', function(){
   Flight::json(Flight::classesService()->remove(Flight::request()->data->getData()));
 });
 
+Flight::route('POST /appo/remove', function(){
+  Flight::json(Flight::classesService()->remove(Flight::request()->data->getData()));
+});
+
 Flight::route('POST /booked', function(){
   Flight::json(Flight::classesService()->booked(Flight::request()->data->getData()));
 });

@@ -45,24 +45,24 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="name"
-                                            placeholder="First Name">
+                                            placeholder="First Name" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="last_name"
-                                            placeholder="Last Name">
+                                            placeholder="Last Name" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
-                                            id="username" placeholder="Username">
+                                            id="username" placeholder="Username" required>
                                     </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="email"
-                                        placeholder="Email Address">
+                                    <input type="text" class="form-control form-control-user" id="email"
+                                        placeholder="Email Address" required>
                                 </div>
                                 <div class="form-group ">
                                         <input type="password" class="form-control form-control-user"
-                                            id="password" placeholder="Password">
+                                            id="password" placeholder="Password" minlength="5">
                                     </div>
                                   <div class="form-group">
                                     <label for="role">Select your role</label>
@@ -130,7 +130,7 @@
               toastr.success("Activation link has been sent to your mail! Please check your email.");
             }).fail(function(error) {
               $("#register-link").prop('disabled',false);
-              toastr.error("Please enter all data correctly");
+              toastr.error(error.responseJSON.message);
             });
 
           }

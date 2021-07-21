@@ -30,6 +30,11 @@ class UserService extends BaseService{
   }
 
   public function register($user){
+    if($user['name'] == NULL) throw new Exception("Name field missing!", 400);
+    if($user['last_name']== NULL) throw new Exception("Last name field missing!", 400);
+    if($user['username']== NULL) throw new Exception("Username field missing!", 400);
+    if($user['password']== NULL || strlen($user['password'])<5) throw new Exception("Password must be at least 5 characters!", 400);
+    if($user['email']== NULL || (!filter_var($user['email'], FILTER_VALIDATE_EMAIL))) throw new Exception("Enter email in correct format!", 400);
     try {
       $user = parent::add([
         "name"=>$user['name'],
@@ -43,7 +48,7 @@ class UserService extends BaseService{
       ]);
     } catch (Exception $e) {
       $this->dao->rollBack();
-      if (strpos($e->getMessage(), 'comply with RFC 2822, 3.6.2.')) {
+      if (strpos($e->getMessage(), 'Address in mailbox given')) {
        throw new Exception("Please enter email in correct format", 400, $e);
      }else{
        throw $e;
