@@ -2,7 +2,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">User</h1>
+        <h1 class="h3 m-0 font-weight-bold text-primary">User</h1>
     </div>
 
     <div class="row">
@@ -14,7 +14,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <a href="#appo">Appointments</a></div>
+                                <a href="#appo" onclick="getClasses()">Appointments</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                         </div>
                         <div class="col-auto">
@@ -32,7 +32,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                <a href="#list">List of active tutorings</a></div>
+                                <a href="#list" onclick="getClasses1()">List of active tutorings</a></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                         </div>
                         <div class="col-auto">
@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"><a href="#edit">Edit your information
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"><a href="#edit" onclick="getUser()">Edit your information
                             </a></div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
@@ -113,3 +113,74 @@
 
 </div>
 <!-- /.container-fluid -->
+<script type="text/javascript">
+
+      function getClasses(){
+          var info = parse_jwt(window.localStorage.getItem("token"));
+        $.ajax({
+             url: "api/classesuser/"+info.id,
+             type: "GET",
+             beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+             success: function(data) {
+               var html = "";
+               for(var i = 0; i < data.length; i++){
+                 html += '<tr class="odd">'
+                     +'<td>'+data[i].name+'</td>'
+                     +'<td>'+data[i].subject+'</td>'
+                     +'<td>'+data[i].duration+'</td>'
+                     +'<td>'+data[i].type+'</td>'
+                     +'<td>'+data[i].date+'</td></tr>';
+               }
+
+               $("#user-table tbody").html(html);
+
+             }
+          });
+      }
+
+      function getUser(){
+      var user_info = parse_jwt(window.localStorage.getItem("token"));
+        $.ajax({
+             url: "api/usersedit/"+user_info.id,
+             type: "GET",
+             beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+             success: function(data) {
+               var html = "";
+               for(var i = 0; i < data.length; i++){
+                 html += '<tr class="odd">'
+                     +'<td>'+data[i].name+'</td>'
+                     +'<td>'+data[i].last_name+'</td>'
+                     +'<td>'+data[i].username+'</td>'
+                     +'<td>'+data[i].email+'</td>'
+                     +'<td>'+data[i].role+'</td>'
+                     +'<td><button type="button" class="btn btn-info" id="delete" onclick="open_edit_modal('+data[i].id+');">Edit</button></td></tr>';
+               }
+               $("#user-table tbody").html(html);
+             }
+          });
+      }
+
+      function getClasses1(){
+        $.ajax({
+             url: "api/classes",
+             type: "GET",
+             beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+             success: function(data) {
+               var html = "";
+               for(var i = 0; i < data.length; i++){
+                 html += '<tr class="odd">'
+                     +'<td>'+data[i].name+'</td>'
+                     +'<td>'+data[i].subject+'</td>'
+                     +'<td>'+data[i].duration+'</td>'
+                     +'<td>'+data[i].type+'</td>'
+                     +'<td>'+data[i].date+'</td>'
+                     +'<td><button type="button" class="btn btn-info" onclick="remove_user('+data[i].id+');">Book!</button></td></tr>';
+               }
+
+               $("#user-table tbody").html(html);
+               $("#user-table").DataTable();
+
+             }
+          });
+      }
+</script>
