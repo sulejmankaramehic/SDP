@@ -66,17 +66,17 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item active">
-                <a class="nav-link" href="#list">
+                <a class="nav-link" href="#list" onclick="getClasses1()">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Active tutoring list</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#appo">
+                <a class="nav-link" href="#appo" onclick="getClasses()">
                     <i class="fas fa-fw fa-calendar-check"></i>
                     <span>Appointments</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#edit">
+                <a class="nav-link" href="#edit" onclick="getUser()">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Edit profile</span></a>
             </li>
@@ -202,6 +202,75 @@
       function doLogout(){
             window.localStorage.clear();
             window.location = "home.html";
+          }
+
+          function getClasses(){
+              var info = parse_jwt(window.localStorage.getItem("token"));
+            $.ajax({
+                 url: "api/classesuser/"+info.id,
+                 type: "GET",
+                 beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+                 success: function(data) {
+                   var html = "";
+                   for(var i = 0; i < data.length; i++){
+                     html += '<tr class="odd">'
+                         +'<td>'+data[i].name+'</td>'
+                         +'<td>'+data[i].subject+'</td>'
+                         +'<td>'+data[i].duration+'</td>'
+                         +'<td>'+data[i].type+'</td>'
+                         +'<td>'+data[i].date+'</td></tr>';
+                   }
+
+                   $("#user-table tbody").html(html);
+
+                 }
+              });
+          }
+
+          function getUser(){
+          var user_info = parse_jwt(window.localStorage.getItem("token"));
+            $.ajax({
+                 url: "api/usersedit/"+user_info.id,
+                 type: "GET",
+                 beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+                 success: function(data) {
+                   var html = "";
+                   for(var i = 0; i < data.length; i++){
+                     html += '<tr class="odd">'
+                         +'<td>'+data[i].name+'</td>'
+                         +'<td>'+data[i].last_name+'</td>'
+                         +'<td>'+data[i].username+'</td>'
+                         +'<td>'+data[i].email+'</td>'
+                         +'<td>'+data[i].role+'</td>'
+                         +'<td><button type="button" class="btn btn-info" id="delete" onclick="open_edit_modal('+data[i].id+');">Edit</button></td></tr>';
+                   }
+                   $("#user-table tbody").html(html);
+                 }
+              });
+          }
+
+          function getClasses1(){
+            $.ajax({
+                 url: "api/classes",
+                 type: "GET",
+                 beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+                 success: function(data) {
+                   var html = "";
+                   for(var i = 0; i < data.length; i++){
+                     html += '<tr class="odd">'
+                         +'<td>'+data[i].name+'</td>'
+                         +'<td>'+data[i].subject+'</td>'
+                         +'<td>'+data[i].duration+'</td>'
+                         +'<td>'+data[i].type+'</td>'
+                         +'<td>'+data[i].date+'</td>'
+                         +'<td><button type="button" class="btn btn-info" onclick="remove_user('+data[i].id+');">Book!</button></td></tr>';
+                   }
+
+                   $("#user-table tbody").html(html);
+                   $("#user-table").DataTable();
+
+                 }
+              });
           }
     </script>
 

@@ -71,17 +71,17 @@
                     <span>Add tutoring</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#table">
+                <a class="nav-link" href="#table" onclick="getUsers()">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Your tutorings</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#appo">
+                <a class="nav-link" href="#appo" onclick="getAppointments()">
                     <i class="fas fa-fw fa-calendar-check"></i>
                     <span>Appointments</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#edit-tutor">
+                <a class="nav-link" href="#edit-tutor" onclick="getUser()">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Edit information</span></a>
             </li>
@@ -208,6 +208,77 @@
       function doLogout(){
             window.localStorage.clear();
             window.location = "home.html";
+          }
+
+          function getAppointments(){
+            var info = parse_jwt(window.localStorage.getItem("token"));
+            $.ajax({
+                 url: "api/classestutorbook/"+info.id,
+                 type: "GET",
+                 beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+                 success: function(data) {
+                   var html = "";
+                   for(var i = 0; i < data.length; i++){
+                     html += '<tr class="odd">'
+                         +'<td>'+data[i].subject+'</td>'
+                         +'<td>'+data[i].duration+'</td>'
+                         +'<td>'+data[i].type+'</td>'
+                         +'<td>'+data[i].date+'</td>'
+                         +'<td><button type="button" class="btn btn-danger" onclick="remove_user('+data[i].id+');">Remove</button></td></tr>';
+                   }
+
+                   $("#user-table tbody").html(html);
+                   $("#user-table").DataTable();
+
+                 }
+              });
+          }
+
+          function getUser(){
+          var user_info = parse_jwt(window.localStorage.getItem("token"));
+            $.ajax({
+                 url: "api/tutoredit/"+user_info.id,
+                 type: "GET",
+                 beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+                 success: function(data) {
+                   var html = "";
+                   for(var i = 0; i < data.length; i++){
+                     html += '<tr class="odd">'
+                         +'<td>'+data[i].name+'</td>'
+                         +'<td>'+data[i].last_name+'</td>'
+                         +'<td>'+data[i].username+'</td>'
+                         +'<td>'+data[i].email+'</td>'
+                         +'<td>'+data[i].role+'</td>'
+                         +'<td><button type="button" class="btn btn-info" id="delete" onclick="open_edit_modal('+data[i].id+');">Edit</button></td></tr>';
+                   }
+                   $("#user-table tbody").html(html);
+                 }
+              });
+          }
+
+          function getUsers(){
+            $.ajax({
+                 url: "api/classestutor",
+                 type: "GET",
+                 beforeSend: function(xhr){xhr.setRequestHeader('Authentication', localStorage.getItem("token"));},
+                 success: function(data) {
+                   var html = "";
+                   for(var i = 0; i < data.length; i++){
+                     html += '<tr class="odd">'
+                         +'<td>'+data[i].name+'</td>'
+                         +'<td>'+data[i].subject+'</td>'
+                         +'<td>'+data[i].duration+'</td>'
+                         +'<td>'+data[i].type+'</td>'
+                         +'<td>'+data[i].date+'</td>'
+                         +'<td><button type="button" class="btn btn-info" id="delete" onclick="open_edit_modal('+data[i].id+');">Edit</button></td>'
+                         +'<td><button type="button" class="btn btn-danger" onclick="remove_user('+data[i].id+');">Remove</button></td></tr>';
+                   }
+
+                   $("#user-table tbody").html(html);
+                   $("#user-table").DataTable();
+
+                 }
+              });
           }
     </script>
 
