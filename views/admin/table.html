@@ -28,7 +28,8 @@
         </div>
         <div class="form-group">
           <label for="role">Select role</label>
-            <select id="role" name="role" class="form-control">
+            <select id="role" name="role" class="form-control" required>
+              <option value="">Select a role</option>
               <option value="BASIC_USER">Student</option>
               <option value="TUTOR">Tutor</option>
               <option value="ADMIN">Admin</option>
@@ -122,6 +123,7 @@
            $("#editform input[name=last_name]").val(data.last_name);
            $("#editform input[name=email]").val(data.email);
            $("#editform input[name=username]").val(data.username);
+           $("#editform input[name=role]").val(data.role);
            $("#editform input[name=id]").val(data.id);
            console.log(data);
          },
