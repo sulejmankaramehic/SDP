@@ -101,7 +101,7 @@ class ClassesDao extends BaseDao{
                           FROM classes c
                           INNER JOIN users u ON c.tutorid=u.id
                           INNER JOIN users l ON c.bookedby=l.id
-                         WHERE c.deleted=0 AND c.booked=1 and AND l.deleted=0 and u.id=${id}
+                         WHERE c.deleted=0 AND c.booked=1 AND l.deleted=0 and u.id=${id}
                          ORDER BY c.${order_column} ${order_direction}
                          LIMIT ${limit} OFFSET ${offset}",[]);
   }
