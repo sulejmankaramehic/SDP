@@ -10,6 +10,7 @@
                 <table id="user-table" class="table table-bordered"width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Topic</th>
                             <th>Subject</th>
                             <th>Tutor</th>
                             <th>Student</th>
@@ -40,6 +41,7 @@
            for(var i = 0; i < data.length; i++){
              html += '<tr class="odd">'
                  +'<td>'+data[i].Subjcet+'</td>'
+                 +'<td>'+data[i].sub+'</td>'
                  +'<td>'+data[i].tutor+'</td>'
                  +'<td>'+data[i].student+'</td>'
                  +'<td><button type="button" class="btn btn-danger" onclick="remove_user('+data[i].id+');">Remove</button></td></tr>';

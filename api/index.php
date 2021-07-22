@@ -48,7 +48,6 @@ Flight::route('GET /', function(){
 
 /* Registering Business logic layer services*/
 Flight::register('userService','UserService');
-Flight::register('accountService','AccountService');
 Flight::register('classesService','ClassesService');
 Flight::register('appointmentsService','AppointmentsService');
 
@@ -56,7 +55,6 @@ Flight::register('appointmentsService','AppointmentsService');
 /* Including all routes*/
 require_once dirname(__FILE__).'/routes/middleware.php';
 require_once dirname(__FILE__).'/routes/users.php';
-require_once dirname(__FILE__).'/routes/accounts.php';
 require_once dirname(__FILE__).'/routes/appointments.php';
 require_once dirname(__FILE__).'/routes/classes.php';
 

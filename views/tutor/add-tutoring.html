@@ -13,16 +13,16 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="name"
-                                            placeholder="Name">
+                                            placeholder="Topic" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="subject"
-                                            placeholder="Subject">
+                                            placeholder="Subject" required>
                                     </div>
                                 </div>
                                   <div class="form-group">
                                     <label for="role">Duration</label>
-                                      <select id="duration" name="duration" class="form-control">
+                                      <select id="duration" name="duration" class="form-control" required>
                                         <option value="1hour">1h</option>
                                         <option value="2hours">2h</option>
                                         <option value="3hours">3h</option>
@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="role">Type</label>
-                                        <select id="type" name="type" class="form-control">
+                                        <select id="type" name="type" class="form-control" required>
                                           <option value="Online">Online</option>
                                           <option value="In person">In person</option>
                                         </select>
@@ -68,9 +68,10 @@
               "tutorid" : user_info.id,
             };
 
-            $.post( "api/classes", register_info).done(function( data ) {
+            $.post("api/classes", register_info).done(function( data ) {
               toastr.success("Class has been added");
-              document.getElementById('add').reset();
+              document.getElementById('name').reset();
+              document.getElementById('subject').reset();
             }).fail(function(error) {
               toastr.error(error.responseJSON.message);
             });

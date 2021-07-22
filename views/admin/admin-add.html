@@ -69,9 +69,6 @@
             };
 
             $("#register-link").prop('disabled',true);
-            $("#register").validate({
-
-            });
             $.post( "api/register", register_info).done(function( data ) {
               toastr.success("Activation link has been sent to added users email! Please check email.");
               document.getElementById('add').reset();

@@ -84,7 +84,7 @@ class ClassesDao extends BaseDao{
 
     list($order_column, $order_direction) = self::parse_order($order);
 
-    return $this->query("SELECT c.id,c.name AS Subjcet, u.name AS tutor, l.name AS student
+    return $this->query("SELECT c.id,c.name AS Subjcet, u.name AS tutor, l.name AS student, c.subject AS sub
                           FROM classes c
                           INNER JOIN users u ON c.tutorid=u.id
                           INNER JOIN users l ON c.bookedby=l.id
