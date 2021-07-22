@@ -38,7 +38,7 @@ class SMTPClient {
     $message = (new Swift_Message('Recovery token'))
       ->setFrom(['mail.responder2021@gmail.com' => 'Online Tutor Platform'])
       ->setTo([$user['email']])
-      ->setBody('Here is the recovery token: '.$user['token']);
+      ->setBody('Here is the token that you need to be able to change your password: '.$user['token']);
 
     // Send the message
     $this->mailer->send($message);
